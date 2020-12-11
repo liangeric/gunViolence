@@ -36,6 +36,18 @@ reduceCat <- function(x) {
   if (grepl("Auto",x)){
     return("Auto")
   }
+  if (grepl("10mm",x)){
+    return("Handgun")
+  }
+  if (grepl("9mm",x)){
+    return("Handgun")
+  }
+  if (grepl("Gauge",x)){
+    return("Shotgun")
+  }
+  if (grepl("30-06",x)){
+    return("Rifle")
+  }
 return(x)
 }
 types <- unlist(lapply(types,reduceCat))
