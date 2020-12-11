@@ -6,6 +6,7 @@ library(shinyWidgets)
 library(tidytext)
 library(wordcloud)
 library(shinydashboard)
+library(plotly)
 data(stop_words)
 
 deaths <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/filteredViolence.csv")
