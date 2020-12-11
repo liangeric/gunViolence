@@ -163,6 +163,6 @@ penn_deaths <- select(penn_deadly_data,
                       n_killed,longitude,latitude,date,n_injured,source_url)
 write.csv(penn_deaths,"pennDeadly.csv",row.names = FALSE)
 
-write.csv(age_data_region,"pennDeadly.csv",row.names = FALSE)
+write.csv(age_data_region,"gun-violence-ages.csv",row.names = FALSE)
 ```
 
