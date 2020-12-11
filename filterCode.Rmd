@@ -25,7 +25,7 @@ types <- unlist(lapply(types,function(x) str_split(x,"\\|")[[1]][1]))
 types <- unlist(lapply(types,function(x) gsub("::",":",x)))
 reduceCat <- function(x) {
   if (grepl("gauge",x)){
-    return("Gauge")
+    return("Shotgun")
   }
   if (grepl("Win",x)){
     return("Win")
@@ -47,6 +47,18 @@ reduceCat <- function(x) {
   }
   if (grepl("30-06",x)){
     return("Rifle")
+  }
+  if (grepl("223 Rem",x)){
+    return("AR-15")
+  }
+  if (grepl("38 Spl",x)){
+    return("Handgun")
+  }
+  if (grepl("40 SW",x)){
+    return("Handgun")
+  }
+  if (grepl("AK-47",x)){
+    return("AK-47")
   }
 return(x)
 }
