@@ -1,2 +1,3 @@
-# gunViolence
-R Shiny App that explores different aspects of gun violence incidents
+# Gun Violence Incidents
+
+R Shiny App that explores different aspects of gun violence incidents, the original data can be found [here](https://www.kaggle.com/jameslko/gun-violence-data)
