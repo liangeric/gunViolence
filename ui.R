@@ -4,8 +4,8 @@ dashboardPage(
   dashboardHeader(title = "Group 11 Project"),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Part a", tabName = "partA"),
-      menuItem("Part b", tabName = "partB")
+      menuItem("Gun Type Distribution", tabName = "partA"),
+      menuItem("Notes Word Cloud", tabName = "partB")
     )
   ),
   dashboardBody(

@@ -19,7 +19,7 @@ function(input, output) {
     if (length(wantedStates) == 0) {
       p <- ggplot(subData, aes(x = gun_type)) +
         geom_bar() + 
-        theme(axis.text.x = element_text(angle = 90)) +
+        theme(axis.text.x = element_text(angle = 45)) +
         labs(title = "Distribution of Known Gun Types",
              x = "Gun Type",
              y = "Number of Incidents"
@@ -30,7 +30,7 @@ function(input, output) {
       
       p <- ggplot(statesubData, aes(x = gun_type, fill = state)) +
         geom_bar() + 
-        theme(axis.text.x = element_text(angle = 90)) +
+        theme(axis.text.x = element_text(angle = 45)) +
         labs(title = "Distribution of Known Gun Types",
              x = "Gun Type",
              y = "Number of Incidents",
