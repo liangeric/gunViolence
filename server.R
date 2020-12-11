@@ -1,15 +1,3 @@
-library(tidyverse)
-library(shinydashboard)
-library(tidytext)
-library(wordcloud)
-data(stop_words)
-
-deaths <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/filteredViolence.csv")
-subData <- filter(deaths,!is.na(gun_type) & gun_type != "Unknown")
-subData$gun_type <- factor(subData$gun_type,levels = 
-                             c("Handgun","Shotgun","Rifle","Win",
-                               "AR-15","22 LR","AK-47","Auto","Mag","Other"))
-
 function(input, output) {
   
   output$gun_type_plot <- renderPlot({

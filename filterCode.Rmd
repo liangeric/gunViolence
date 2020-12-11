@@ -159,7 +159,8 @@ age_data_region <- mutate(age_and_type, region = sapply(state, get_region),
 deaths <- select(deaths,state,gun_type,notes)
 write.csv(deaths,"filteredViolence.csv",row.names = FALSE)
 
-penn_deaths <- select(n_killed,longitude,latitude,date,n_injured,source_url)
+penn_deaths <- select(penn_deadly_data,
+                      n_killed,longitude,latitude,date,n_injured,source_url)
 write.csv(penn_deaths,"pennDeadly.csv",row.names = FALSE)
 
 write.csv(age_data_region,"pennDeadly.csv",row.names = FALSE)

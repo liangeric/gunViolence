@@ -1,5 +1,3 @@
-library(shinydashboard)
-
 dashboardPage(
   dashboardHeader(title = "Group 11 Project"),
   dashboardSidebar(
