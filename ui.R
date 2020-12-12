@@ -1,11 +1,11 @@
 dashboardPage(
-  dashboardHeader(title = "Group 11 Project"),
+  dashboardHeader(title = "Gun Violence Incidents"),
   dashboardSidebar(
     sidebarMenu(
       menuItem("Gun Type Distribution", tabName = "partA"),
       menuItem("Notes Word Cloud", tabName = "partB"),
-      menuItem("Test",tabName = "partC"),
-      menuItem("Test2",tabName = "partD")
+      menuItem("Gun Incidents Map",tabName = "partC"),
+      menuItem("Suspect & Victim Ages Distribution",tabName = "partD")
     )
   ),
   dashboardBody(
@@ -47,7 +47,9 @@ dashboardPage(
                 box(
                   title = "Deadly Gun Incidents in Pennsylvania (March 2017 - March 2018)",
                   leafletOutput(outputId = "pennsylvania", height = 400, 
-                             width = 800)
+                             width = 800),
+                  height = 500,
+                  width = 10
                 )
               )
               ),
@@ -55,8 +57,12 @@ dashboardPage(
               fluidRow(
                 box(
                   plotlyOutput(outputId = "age_comparison",
-                             height = 400, width = 900)
-                ),
+                               height = 500, width = 800),
+                  height = 550,
+                  width = 10
+                )
+              ),
+              fluidRow(
                 box(
                   title = "Comparison of Age of Suspect and Age of Victim (March 2017 - March 2018)",
                   selectizeInput(inputId = "region",

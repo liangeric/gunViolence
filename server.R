@@ -75,22 +75,42 @@ function(input, output) {
   })
   
   output$age_comparison <- renderPlotly({
-    react <- reactive({
-      age_data_region %>% filter(month == input$month,
-                                 region %in% input$region)
-    })
     
-    p <- ggplot(react(),
-                aes(x = avg_suspect_age, y = avg_victim_age,
-                    color = region)) +
-      geom_point() +
-      labs(x = "Average Age of Suspects",
-           y = "Average Age of Victims",
-           color = "Region",
-           title = "Distribution of Suspect and Victim Ages") +
-      geom_abline(slope = 1, intercept = 0)
-    
-    p_plotly <- ggplotly(p, height = 600)
+    if(length(input$region) == 0){
+      react <- reactive({
+        age_data_region %>% filter(month == input$month)
+      })
+      
+      p <- ggplot(react(),
+                  aes(x = avg_suspect_age, y = avg_victim_age,
+                      color = region)) +
+        geom_point() +
+        labs(x = "Average Age of Suspects",
+             y = "Average Age of Victims",
+             color = "Region",
+             title = "Distribution of Suspect and Victim Ages") +
+        geom_abline(slope = 1, intercept = 0)
+      
+      p_plotly <- ggplotly(p, height = 500)
+    }
+    else{
+      react <- reactive({
+        age_data_region %>% filter(month == input$month,
+                                   region %in% input$region)
+      })
+      
+      p <- ggplot(react(),
+                  aes(x = avg_suspect_age, y = avg_victim_age,
+                      color = region)) +
+        geom_point() +
+        labs(x = "Average Age of Suspects",
+             y = "Average Age of Victims",
+             color = "Region",
+             title = "Distribution of Suspect and Victim Ages") +
+        geom_abline(slope = 1, intercept = 0)
+      
+      p_plotly <- ggplotly(p, height = 500)
+    }
     
     return(p_plotly)
   })
