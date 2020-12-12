@@ -5,7 +5,9 @@ dashboardPage(
       menuItem("Gun Type Distribution", tabName = "partA"),
       menuItem("Notes Word Cloud", tabName = "partB"),
       menuItem("Gun Incidents Map",tabName = "partC"),
-      menuItem("Suspect & Victim Ages Distribution",tabName = "partD")
+      menuItem("Suspect & Victim Ages Distribution",tabName = "partD"),
+      menuItem("Gun Incidents Time Series",tabName = "partE"),
+      menuItem("Suspect & Victim Gender",tabName = "partF")
     )
   ),
   dashboardBody(
@@ -68,7 +70,6 @@ dashboardPage(
                   selectizeInput(inputId = "region",
                                  label = "Choose Your Regions",
                                  choices = levels(factor(age_data_region$region)),
-                                 selected = "Northeast",
                                  multiple = TRUE,
                                  options = NULL),
                   
@@ -82,7 +83,27 @@ dashboardPage(
                                               "March 2018"))
                 )
               )
+              ),
+      tabItem(tabName = "partE",
+              fluidRow(
+                box(
+                  dygraphOutput(outputId = "dygraph", height = "500px", 
+                                width = "700px"),
+                  height = 550,
+                  width = 10
+                  )
+                )
+              ),
+      
+      tabItem(tabName = "partF",
+              fluidRow(
+                box(
+                  billboarderOutput(outputId = "donut", height = "500px",
+                                    width = "500px")
+                  )
+                )
               )
+      
       )
     )
   )

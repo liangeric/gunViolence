@@ -67,7 +67,7 @@ function(input, output) {
                                      "<br/>Number killed: ", penn_deadly_data$n_killed,
                                      "<br/>Number injured: ", penn_deadly_data$n_injured,
                                      "<br/><a href='", penn_deadly_data$source_url, "'>More Information</a>")) %>%
-      addLegend(pal = pal,
+      leaflet::addLegend(pal = pal,
                 values = ~penn_deadly_data$n_killed,
                 title = "Deaths")
     
@@ -113,6 +113,28 @@ function(input, output) {
     }
     
     return(p_plotly)
+  })
+  
+  output$dygraph <- renderDygraph({
+    time_dygraph <- dygraph(data = variables, main = "Gun Violence Incidents in the US from 2013-2018",
+                            xlab = "Date", ylab = "Frequency") %>%
+      dyOptions(colors = c("red", "orange", "blue")) %>%
+      dyRangeSelector
+    
+    return(time_dygraph)
+  })
+  
+  output$donut <- renderBillboarder({
+    billboard <- billboarder() %>% 
+      bb_donutchart(data = participants) %>%
+      bb_title(text = "Participants of Gun Violence Incidents (March 2017-March 2018)", position = "top-center") %>%
+      bb_colors_manual(
+        'female suspects' = "red",
+        'male suspects' = "orange",
+        'female victims' = "blue",
+        'male victims' = "purple"
+      )
+    return(billboard)
   })
   
 }
