@@ -14,14 +14,14 @@ library(tidyverse)
 ```
 
 ```{r}
-deaths <- read_csv("gun-violence-data.csv")
+orgDeaths <- read_csv("gun-violence-data.csv")
 ```
 
 ```{r}
 # filter out data to just one year
 start_date <- as.Date("2017-03-01", format = "%Y-%m-%d")
 end_date <- as.Date("2018-03-30", format = "%Y-%m-%d")
-deaths <- mutate(deaths, date = as.Date(date, format = "%Y-%m-%d")) %>%
+deaths <- mutate(orgDeaths, date = as.Date(date, format = "%Y-%m-%d")) %>%
   filter(date >= start_date & date <= end_date)
 ```
 
@@ -164,5 +164,8 @@ penn_deaths <- select(penn_deadly_data,
 write.csv(penn_deaths,"pennDeadly.csv",row.names = FALSE)
 
 write.csv(age_data_region,"gun-violence-ages.csv",row.names = FALSE)
+
+injured_killed <- select(orgDeaths,date,n_injured,n_killed)
+write.csv(injured_killed, "injured_killed.csv",row.names = FALSE)
 ```
 
