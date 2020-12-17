@@ -41,7 +41,11 @@ dashboardPage(
                   selectInput(inputId = "stateOptText",
                               label = "States in Word Cloud:",
                               choices = state.name,
-                              multiple = TRUE)
+                              multiple = TRUE),
+                  sliderInput("maxNumWords", "Maximum Number of Words:", 
+                              1,200,100,20),
+                  sliderInput("minFreq", "Minimum Frequency:", 
+                              1,100,10,1)
                 )
               )
               ),

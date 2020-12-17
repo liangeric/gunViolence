@@ -31,6 +31,8 @@ function(input, output) {
   output$text_cloud <- renderPlot({
     
     wantedStates <-  input$stateOptText
+    maxWords <- input$maxNumWords
+    minFreq <- input$minFreq
     
     if (length(wantedStates) == 0) {
       p <- dplyr::select(deaths, notes) %>%
@@ -38,7 +40,7 @@ function(input, output) {
         unnest_tokens(word, notes) %>%
         anti_join(stop_words) %>%
         count(word) %>%
-        with(wordcloud(word, n, max.words = 100))
+        with(wordcloud(word, n, max.words = maxWords, min.freq = minFreq))
     }
     else {
       statesubData <- filter(subData, state %in% wantedStates)
@@ -47,7 +49,7 @@ function(input, output) {
         unnest_tokens(word, notes) %>%
         anti_join(stop_words) %>%
         count(word) %>%
-        with(wordcloud(word, n, max.words = 100)) 
+        with(wordcloud(word, n, max.words = maxWords, min.freq = minFreq)) 
     }
     
     return(p)
