@@ -19,6 +19,9 @@ subData$gun_type <- factor(subData$gun_type,levels =
                                "AR-15","22 LR","AK-47","Auto","Mag","Other"))
 penn_deadly_data <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/pennDeadly.csv")
 age_data_region <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/gun-violence-ages.csv")
+colnames(age_data_region)[3] = "Average Age of Victims"
+colnames(age_data_region)[4] = "Average Age of Suspects"
+colnames(age_data_region)[5] = "Region"
 
 data <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/injured_killed.csv")
 df_killed <- aggregate(data$n_killed, by=list(date=data$date), FUN=sum)

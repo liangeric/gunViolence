@@ -71,7 +71,7 @@ dashboardPage(
                   title = "Comparison of Age of Suspect and Age of Victim (March 2017 - March 2018)",
                   selectizeInput(inputId = "region",
                                  label = "Choose Your Regions",
-                                 choices = levels(factor(age_data_region$region)),
+                                 choices = levels(factor(age_data_region$Region)),
                                  multiple = TRUE,
                                  options = NULL),
                   
@@ -112,7 +112,7 @@ dashboardPage(
                   plotlyOutput(outputId = "us_graph",
                                height = 500, width = 800),
                   height = 550,
-                  width = 10
+                  width = 11
                 )
               )
               ),
@@ -122,7 +122,7 @@ dashboardPage(
                   plotlyOutput(outputId = "num_guns",
                                height = 500, width = 800),
                   height = 550,
-                  width = 10
+                  width = 11
                 )
               )
       )

@@ -82,8 +82,8 @@ function(input, output) {
       })
       
       p <- ggplot(react(),
-                  aes(x = avg_suspect_age, y = avg_victim_age,
-                      color = region)) +
+                  aes(x = `Average Age of Suspects`, y = `Average Age of Victims`,
+                      color = Region)) +
         geom_point() +
         labs(x = "Average Age of Suspects",
              y = "Average Age of Victims",
@@ -96,12 +96,12 @@ function(input, output) {
     else{
       react <- reactive({
         age_data_region %>% filter(month == input$month,
-                                   region %in% input$region)
+                                   Region %in% input$region)
       })
       
       p <- ggplot(react(),
-                  aes(x = avg_suspect_age, y = avg_victim_age,
-                      color = region)) +
+                  aes(x = `Average Age of Suspects`, y = `Average Age of Victims`,
+                      color = Region)) +
         geom_point() +
         labs(x = "Average Age of Suspects",
              y = "Average Age of Victims",
@@ -152,7 +152,8 @@ function(input, output) {
       labs(title = "Incidents of Gun Violence per 100,000 People by State",
            fill = "# Incidents per 100k People")
     
-    p_plotly <- ggplotly(p, height = 500, width = 800)
+    p_plotly <- ggplotly(p, height = 500, width = 900) %>%
+      layout(margin = list(r = 250))
     
     return(p_plotly)
   })
@@ -170,7 +171,8 @@ function(input, output) {
            y = "Number of Incidents of Gun Violence",
            fill = "Number of People Affected")
     
-    p_plotly <- ggplotly(p, height = 500, width = 800)
+    p_plotly <- ggplotly(p, height = 500, width = 900) %>%
+      layout(margin = list(r = 250))
     
     return(p_plotly)
   })
