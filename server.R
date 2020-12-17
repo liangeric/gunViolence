@@ -137,4 +137,42 @@ function(input, output) {
     return(billboard)
   })
   
+  output$us_graph <- renderPlotly({
+    
+    p <- ggplot(us_data) +
+      geom_polygon(aes(x = long,
+                       y = lat,
+                       group = group,
+                       fill = factor(gv_cat)), 
+                   color = "black") +
+      scale_fill_manual(values = c("gray75", "cadetblue1", "cornflowerblue", "darkblue"),
+                        labels = c("0-3.317", "3.317-4.789", "4.789-6.140", "6.140-24.770")) +
+      theme_void() +
+      coord_map("polyconic") +
+      labs(title = "Incidents of Gun Violence per 100,000 People by State",
+           fill = "# Incidents per 100k People")
+    
+    p_plotly <- ggplotly(p, height = 500, width = 800)
+    
+    return(p_plotly)
+  })
+  
+  output$num_guns <- renderPlotly({
+    
+    p <- ggplot(gun_violence2018,
+                aes(x = log(n_guns_involved))) +
+      geom_histogram(bins = 5,
+                     aes(fill = as.factor(n_affected)),
+                     col = "black") +
+      scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")) +
+      labs(title = "Log Number of Guns Involved by Number Affected",
+           x = "Log of Number of Guns Involved",
+           y = "Number of Incidents of Gun Violence",
+           fill = "Number of People Affected")
+    
+    p_plotly <- ggplotly(p, height = 500, width = 800)
+    
+    return(p_plotly)
+  })
+  
 }

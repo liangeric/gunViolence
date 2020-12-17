@@ -57,4 +57,8 @@ participants <- data.frame(category = c("female suspects", "male suspects",
                                         "female victims", "male victims"),
                            count = c(3429, 45059, 6975, 34193))
 
+gun_violence2018 <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/violence_2018.csv",
+                             col_types = "df")
+us_data <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/us_data.csv")
+
 

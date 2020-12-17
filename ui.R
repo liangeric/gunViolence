@@ -4,10 +4,12 @@ dashboardPage(
     sidebarMenu(
       menuItem("Gun Type Distribution", tabName = "partA"),
       menuItem("Notes Word Cloud", tabName = "partB"),
-      menuItem("Gun Incidents Map",tabName = "partC"),
+      menuItem("Gun Incidents PA Map",tabName = "partC"),
       menuItem("Suspect & Victim Ages Distribution",tabName = "partD"),
       menuItem("Gun Incidents Time Series",tabName = "partE"),
-      menuItem("Suspect & Victim Gender",tabName = "partF")
+      menuItem("Suspect & Victim Gender",tabName = "partF"),
+      menuItem("Gun Incidents US Map",tabName = "partG"),
+      menuItem("Number of Guns & Affected",tabName = "partH")
     )
   ),
   dashboardBody(
@@ -102,7 +104,28 @@ dashboardPage(
                                     width = "500px")
                   )
                 )
+              ),
+      
+      tabItem(tabName = "partG",
+              fluidRow(
+                box(
+                  plotlyOutput(outputId = "us_graph",
+                               height = 500, width = 800),
+                  height = 550,
+                  width = 10
+                )
               )
+              ),
+      tabItem(tabName = "partH",
+              fluidRow(
+                box(
+                  plotlyOutput(outputId = "num_guns",
+                               height = 500, width = 800),
+                  height = 550,
+                  width = 10
+                )
+              )
+      )
       
       )
     )
