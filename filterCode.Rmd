@@ -166,7 +166,7 @@ age_data_region <- mutate(age_and_type, region = sapply(state, get_region),
 
 ```{r}
 # write out the filtered data
-deaths <- select(deaths,state,gun_type,notes)
+deaths <- select(deaths,state,gun_type,notes,n_killed,n_injured,state)
 write.csv(deaths,"filteredViolence.csv",row.names = FALSE)
 
 penn_deaths <- select(penn_deadly_data,
@@ -180,8 +180,5 @@ write.csv(injured_killed, "injured_killed.csv",row.names = FALSE)
 
 violence_2018 <- select(gun_violence2018,n_guns_involved,n_affected)
 write.csv(violence_2018,"violence_2018.csv",row.names = FALSE)
-
-data_one_year <- select(deaths,n_killed,n_injured,state)
-write.csv(data_one_year,"oneYear.csv",row.names = FALSE)
 ```
 

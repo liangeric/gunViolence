@@ -145,7 +145,7 @@ function(input, output) {
                        text = sprintf("Deaths: %s\nNum. Injuries: %s", 
                                       total_killed, total_injured)), 
                    color = "black") +
-      scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 2500) +
+      scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 2500) +
       coord_map("polyconic") +
       labs(title = "Number of Gun Violence Incidents by State",
            fill = "Num. of \nIncidents") +
@@ -154,7 +154,7 @@ function(input, output) {
             axis.ticks = element_blank(),
             panel.background = element_blank())
     
-    p_plotly <- ggplotly(p, width = 600, height = 600, tooltip = "text")
+    p_plotly <- ggplotly(p, width = 800, height = 500, tooltip = "text")
     
     return(p_plotly)
   })

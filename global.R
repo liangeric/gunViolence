@@ -70,11 +70,9 @@ gun_violence2018$NumberAffected = as.factor(gun_violence2018$n_affected)
 gun_violence2018$NumberAffected <- factor(gun_violence2018$NumberAffected, levels = c("0", "1", "2", "3", "4", "5", "6", "7", "8+"))
 gun_violence2018$NumberAffected = fct_collapse(gun_violence2018$NumberAffected, "5+" = c("5", "6", "7", "8+"))
 
-
-data_one_year <- read_csv("")
 us_data <- map_data("state") %>% select(-c(order, subregion))
 
-incident_data <- select(data_one_year, state, n_killed, n_injured) %>%
+incident_data <- select(deaths, state, n_killed, n_injured) %>%
   group_by(state) %>%
   summarize(count = n(), total_killed = sum(n_killed), total_injured = sum(n_injured)) %>%
   filter(state != "Alaska" & state != "Hawaii") %>% mutate(state = tolower(state)) %>%
