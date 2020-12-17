@@ -10,6 +10,8 @@ library(plotly)
 library(xts)
 library(dygraphs)
 library(billboarder)
+library(maps)
+library(mapproj)
 data(stop_words)
 
 deaths <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/filteredViolence.csv")
@@ -62,6 +64,18 @@ participants <- data.frame(category = c("female suspects", "male suspects",
 
 gun_violence2018 <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/violence_2018.csv",
                              col_types = "df")
-us_data <- read_csv("https://raw.githubusercontent.com/liangeric/gunViolence/main/us_data.csv")
+gun_violence2018 = gun_violence2018 %>% filter(n_guns_involved != 1)
+gun_violence2018$n_guns_involved <- cut(gun_violence2018$n_guns_involved, breaks = c(1, 2, 3, 4, 5, 10, 50, Inf), labels = c("2", "3", "4", "5", "6-10", "11-50", "50+"))
+gun_violence2018$NumberAffected = as.factor(gun_violence2018$n_affected)
+gun_violence2018$NumberAffected <- factor(gun_violence2018$NumberAffected, levels = c("0", "1", "2", "3", "4", "5", "6", "7", "8+"))
+gun_violence2018$NumberAffected = fct_collapse(gun_violence2018$NumberAffected, "5+" = c("5", "6", "7", "8+"))
 
 
+data_one_year <- read_csv("")
+us_data <- map_data("state") %>% select(-c(order, subregion))
+
+incident_data <- select(data_one_year, state, n_killed, n_injured) %>%
+  group_by(state) %>%
+  summarize(count = n(), total_killed = sum(n_killed), total_injured = sum(n_injured)) %>%
+  filter(state != "Alaska" & state != "Hawaii") %>% mutate(state = tolower(state)) %>%
+  left_join(us_data, by = c("state" = "region"))

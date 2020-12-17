@@ -139,21 +139,22 @@ function(input, output) {
   
   output$us_graph <- renderPlotly({
     
-    p <- ggplot(us_data) +
-      geom_polygon(aes(x = long,
-                       y = lat,
-                       group = group,
-                       fill = factor(gv_cat)), 
+    p <- ggplot(incident_data) +
+      geom_polygon(aes(x = long, y = lat, group = as.factor(group), 
+                       fill = count,
+                       text = sprintf("Deaths: %s\nNum. Injuries: %s", 
+                                      total_killed, total_injured)), 
                    color = "black") +
-      scale_fill_manual(values = c("gray75", "cadetblue1", "cornflowerblue", "darkblue"),
-                        labels = c("0-3.317", "3.317-4.789", "4.789-6.140", "6.140-24.770")) +
-      theme_void() +
+      scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 2500) +
       coord_map("polyconic") +
-      labs(title = "Incidents of Gun Violence per 100,000 People by State",
-           fill = "# Incidents per 100k People")
+      labs(title = "Number of Gun Violence Incidents by State",
+           fill = "Num. of \nIncidents") +
+      theme(axis.title = element_blank(),
+            axis.text = element_blank(),
+            axis.ticks = element_blank(),
+            panel.background = element_blank())
     
-    p_plotly <- ggplotly(p, height = 500, width = 900) %>%
-      layout(margin = list(r = 250))
+    p_plotly <- ggplotly(p, width = 600, height = 600, tooltip = "text")
     
     return(p_plotly)
   })
@@ -161,17 +162,17 @@ function(input, output) {
   output$num_guns <- renderPlotly({
     
     p <- ggplot(gun_violence2018,
-                aes(x = log(n_guns_involved))) +
-      geom_histogram(bins = 5,
-                     aes(fill = as.factor(n_affected)),
-                     col = "black") +
-      scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#000000")) +
-      labs(title = "Log Number of Guns Involved by Number Affected",
-           x = "Log of Number of Guns Involved",
+                aes(x = n_guns_involved)) +
+      geom_bar(aes(fill = NumberAffected, text = paste0("Count: ", ..count..)),
+               col = "black") +
+      scale_fill_manual(values = c("#FFFFB2", "#FED976", "#FEB24C", "#FD8D3C", "#F03B20", "#BD0026")) +
+      labs(title = "Number of Guns Involved by Number Affected",
+           subtitle = "Data from first 3 months of 2018. Excludes incidents in which one gun was involved because these were the vast majority.",
+           x = "Number of Guns Involved",
            y = "Number of Incidents of Gun Violence",
            fill = "Number of People Affected")
     
-    p_plotly <- ggplotly(p, height = 500, width = 900) %>%
+    p_plotly <- ggplotly(p, height = 500, width = 800, tooltip = "text") %>%
       layout(margin = list(r = 250))
     
     return(p_plotly)

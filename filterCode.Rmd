@@ -21,36 +21,6 @@ orgDeaths <- read_csv("gun-violence-data.csv")
 gun_violence2018 <- subset(orgDeaths, substr(orgDeaths$date, 1, 4) == "2018")
 gun_violence2018$state <- tolower(gun_violence2018$state)
 
-state_pop2018 <- read.csv("nst-est2018-alldata.csv")[,c('NAME', 'POPESTIMATE2018')]
-state_pop2018$state <- tolower(state_pop2018$NAME)
-
-us_data <- map_data("state")
-
-incidents_by_state <- gun_violence2018 %>% 
-  group_by(state) %>% 
-  summarise(count = n())
-
-standard_by_state <- incidents_by_state %>%
-  left_join(state_pop2018, by = "state")
-
-standard_by_state$gv_per_100thou <- (standard_by_state$count/standard_by_state$POPESTIMATE2018)*100000
-
-us_data <- us_data %>%
-  left_join(standard_by_state, by = c("region" = "state"))
-
-i = 1
-for(i in 1:nrow(us_data)){
-  if(us_data$gv_per_100thou[i] <= 3.317){
-    us_data$gv_cat[i] = "1"
-  } else if(3.317 < us_data$gv_per_100thou[i] & us_data$gv_per_100thou[i] <= 4.789){
-    us_data$gv_cat[i] = "2"
-  } else if(4.789 < us_data$gv_per_100thou[i] & us_data$gv_per_100thou[i] <= 6.140){
-    us_data$gv_cat[i] = "3"
-  } else{
-    us_data$gv_cat[i] = "4"
-  }
-}
-
 gun_violence2018 <- mutate(gun_violence2018,
                            n_affected = as.factor(n_killed + n_injured))
 
@@ -208,10 +178,10 @@ write.csv(age_data_region,"gun-violence-ages.csv",row.names = FALSE)
 injured_killed <- select(orgDeaths,date,n_injured,n_killed)
 write.csv(injured_killed, "injured_killed.csv",row.names = FALSE)
 
-new_us_data <- select(us_data,long,lat,group,gv_cat)
-write.csv(new_us_data,"us_data.csv",row.names = FALSE)
-
 violence_2018 <- select(gun_violence2018,n_guns_involved,n_affected)
 write.csv(violence_2018,"violence_2018.csv",row.names = FALSE)
+
+data_one_year <- select(deaths,n_killed,n_injured,state)
+write.csv(data_one_year,"oneYear.csv",row.names = FALSE)
 ```
 
